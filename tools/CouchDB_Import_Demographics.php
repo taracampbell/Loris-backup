@@ -46,13 +46,59 @@ class CouchDBDemographicsImporter {
             'Description' => 'Project for which the candidate belongs',
             'Type' => "enum('IBIS1','IBIS2','Fragile X', 'EARLI Collaboration')",
         ),
+        /*
         'Plan' => array(
             'Description' => 'Plan for IBIS2 candidate',
             'Type' => "varchar(20)",
         ),
+        */
         'EDC' => array(
             'Description' => 'Expected Date of Confinement (Due Date)',
             'Type' => "varchar(255)",
+        ),
+        'CEF' => array(
+            'Description' => 'Caveat Emptor flag',
+            'Type' => "enum('true','false')",
+        ),
+        'CEF_reason' => array(
+            'Description' => 'Reason for Caveat Emptor flag',
+            'Type' => "varchar(255)",
+        ),
+        'CEF_comment' => array(
+            'Description' => 'Comment on Caveat Emptor flag',
+            'Type' => "varchar(255)",
+        ),
+        'Comment' => array(
+            'Description' => 'Candidate comment',
+            'Type' => "varchar(255)",
+        ),
+        'Gender_proband' => array(
+            'Description' => 'Proband\'s gender',
+            'Type' => "",
+        ),/*
+        'Age_difference' => array(
+            'Description' => 'Age difference between the candidate and the proband',
+            'Type' => "",
+        ),*/
+        'Sibling_ID' => array(
+            'Description' => 'ID of the candidate\'s sibling',
+            'Type' => "int(6)",
+        ),
+        'Relationship_to_sibling' => array(
+            'Description' => 'Candidate\'s relationship to their sibling',
+            'Type' => "enum('half_sibling','full_sibling','1st_cousin')",
+        ),
+        'Status' => array(
+            'Description' => 'Participant status',
+            'Type' => "varchar(255)",
+        ),
+        'Status_reason' => array(
+            'Description' => 'Reason for status - only filled out if status is inactive or incomplete',
+            'Type' => "int(10)",
+        ),
+        'Status_comments' => array(
+            'Description' => 'Participant status comments',
+            'Type' => "text",
         )
 
     );
@@ -92,7 +138,28 @@ class CouchDBDemographicsImporter {
         );
 
         // Project, Plan, EDC
-        $demographics = $this->SQLDB->pselect("SELECT c.CandID, c.PSCID, s.Visit_label, s.SubprojectID, p.Alias as Site, c.Gender, s.Current_stage, CASE WHEN s.Visit='Failure' THEN 'Failure' WHEN s.Screening='Failure' THEN 'Failure' WHEN s.Visit='Withdrawal' THEN 'Withdrawal' WHEN s.Screening='Withdrawal' THEN 'Withdrawal' ELSE 'Neither' END as Failure, c.ProjectID, pc_plan.Value as Plan, c.EDC as EDC FROM session s JOIN candidate c USING (CandID) LEFT JOIN psc p ON (p.CenterID=s.CenterID) LEFT JOIN parameter_type pt_plan ON (pt_plan.Name='candidate_plan') LEFT JOIN parameter_candidate AS pc_plan ON (pc_plan.CandID=c.CandID AND pt_plan.ParameterTypeID=pc_plan.ParameterTypeID) WHERE s.Active='Y' AND c.Active='Y' AND c.PSCID <> 'scanner'", array());
+        // Removed Plan - IBIS specific
+        // Age difference - need both candidate and proband date of birth to calculate
+        // CEF_comment - where does c.flagged_other correspond to?
+        // Import only if
+        // Siblings
+        // Checking if fields exist
+        $demographics = $this->SQLDB->pselect("SELECT c.CandID, c.PSCID, s.Visit_label, s.SubprojectID, 
+            p.Alias as Site, c.Gender, s.Current_stage, CASE WHEN s.Visit='Failure' THEN 'Failure' WHEN 
+            s.Screening='Failure' THEN 'Failure' WHEN s.Visit='Withdrawal' THEN 'Withdrawal' WHEN 
+            s.Screening='Withdrawal' THEN 'Withdrawal' ELSE 'Neither' END as Failure, c.ProjectID, 
+            c.EDC as EDC, c.flagged_caveatemptor as CEF, c.flagged_caveatemptor as CEF, 
+            c_o.Description as CEF_reason, c.flagged_other as CEF_comment, pc_comment.Value as Comment,
+            c.Sibling1 as Sibling_ID, f.Relationship_type as Relationship_to_sibling,
+            pso.Description as Status, ps.participant_suboptions as Status_reason, ps.reason_specify as Status_comments
+            FROM session s JOIN candidate c USING (CandID) 
+            LEFT JOIN psc p ON (p.CenterID=s.CenterID) 
+            LEFT JOIN caveat_options c_o ON (c_o.ID = c.flagged_reason)
+            LEFT JOIN parameter_candidate AS pc_comment ON (pc_comment.CandID = c.CandID) AND pc_comment.ParameterTypeID=(SELECT ParameterTypeID FROM parameter_type WHERE Name='candidate_comment')
+            LEFT JOIN family f ON (f.CandID = c.CandID)
+            LEFT JOIN participant_status ps ON (ps.CandID=c.CandID)
+            LEFT JOIN participant_status_options pso ON (pso.ID=ps.participant_status)
+            WHERE s.Active='Y' AND c.Active='Y' AND c.PSCID <> 'scanner'", array());
         foreach($demographics as $demographics) {
             $id = 'Demographics_Session_' . $demographics['PSCID'] . '_' . $demographics['Visit_label'];
             $demographics['Cohort'] = $this->_getSubproject($demographics['SubprojectID']);
