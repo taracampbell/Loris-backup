@@ -11,8 +11,16 @@ class CouchDBMRIImporter {
     // the code a little more readable.
     var $Dictionary = array(
         'QCComment' => array(
-            'Type' => 'varchar(255)',
-            'Description' => 'QC Comment for Session'
+            'Description' => 'QC Comment for Session',
+            'Type' => 'varchar(255)'
+        ),
+        'QCStatus' => array(
+            'Description' => 'QC Status for Session',
+            'Type' => "enum('','Pass','Fail')"
+        ),
+        'QCPending' => array(
+            'Description' => 'QC Pending for Session',
+            'Type' => "enum('Y','N')"
         )
     );
     function __construct() {
@@ -44,7 +52,7 @@ class CouchDBMRIImporter {
     }
 
     function _generateCandidatesQuery($ScanTypes) {
-        $Query = "SELECT c.PSCID, s.Visit_label, fmric.Comment as QCComment";
+        $Query = "SELECT c.PSCID, s.Visit_label, fmric.Comment as QCComment, s.MRIQCStatus as QCStatus, s.MRIQCPending as QCPending";
         foreach($ScanTypes as $Scan) {
             $Query .= ", (SELECT f.File FROM files f LEFT JOIN files_qcstatus fqc USING(FileID) LEFT JOIN parameter_file p ON (p.FileID=f.FileID AND p.ParameterTypeID=$Scan[ParameterTypeID]) WHERE f.SessionID=s.ID AND fqc.QCStatus='Pass' AND p.Value='$Scan[ScanType]' LIMIT 1) as `Selected_$Scan[ScanType]`, (SELECT fqc.QCStatus FROM files f LEFT JOIN files_qcstatus fqc USING(FileID) LEFT JOIN parameter_file p ON (p.FileID=f.FileID AND p.ParameterTypeID=$Scan[ParameterTypeID]) WHERE f.SessionID=s.ID AND fqc.QCStatus='Pass' AND p.Value='$Scan[ScanType]' LIMIT 1) as `$Scan[ScanType]_QCStatus`";
         }
