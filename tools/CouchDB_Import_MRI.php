@@ -43,7 +43,7 @@ class CouchDBMRIImporter {
             );
             $this->Dictionary[$ScanType . "_CaveatEmptor"] = array(
                 'Description' => "Caveat emptor for $ScanType file",
-                'Type' => 'tinyint(1)'
+                'Type' => "enum('Pass', 'Fail')"
             );
         }
         $this->CouchDB->replaceDoc("DataDictionary:mri_data",
@@ -58,7 +58,7 @@ class CouchDBMRIImporter {
     function _generateCandidatesQuery($ScanTypes) {
         $Query = "SELECT c.PSCID, s.Visit_label, fmric.Comment as QCComment, s.MRIQCStatus as QCStatus, s.MRIQCPending as QCPending";
         foreach($ScanTypes as $Scan) {
-            $Query .= ", (SELECT f.File FROM files f LEFT JOIN files_qcstatus fqc USING(FileID) LEFT JOIN parameter_file p ON (p.FileID=f.FileID AND p.ParameterTypeID=$Scan[ParameterTypeID]) WHERE f.SessionID=s.ID AND fqc.QCStatus='Pass' AND p.Value='$Scan[ScanType]' LIMIT 1) as `Selected_$Scan[ScanType]`, (SELECT fqc.QCStatus FROM files f LEFT JOIN files_qcstatus fqc USING(FileID) LEFT JOIN parameter_file p ON (p.FileID=f.FileID AND p.ParameterTypeID=$Scan[ParameterTypeID]) WHERE f.SessionID=s.ID AND fqc.QCStatus='Pass' AND p.Value='$Scan[ScanType]' LIMIT 1) as `$Scan[ScanType]_QCStatus`, (SELECT f.Caveat FROM files f LEFT JOIN files_qcstatus fqc USING(FileID) LEFT JOIN parameter_file p ON (p.FileID=f.FileID AND p.ParameterTypeID=$Scan[ParameterTypeID]) WHERE f.SessionID=s.ID AND fqc.QCStatus='Pass' AND p.Value='$Scan[ScanType]' LIMIT 1) as `$Scan[ScanType]_CaveatEmptor`";
+            $Query .= ", (SELECT f.File FROM files f LEFT JOIN files_qcstatus fqc USING(FileID) LEFT JOIN parameter_file p ON (p.FileID=f.FileID AND p.ParameterTypeID=$Scan[ParameterTypeID]) WHERE f.SessionID=s.ID AND fqc.QCStatus='Pass' AND p.Value='$Scan[ScanType]' LIMIT 1) as `Selected_$Scan[ScanType]`, (SELECT fqc.QCStatus FROM files f LEFT JOIN files_qcstatus fqc USING(FileID) LEFT JOIN parameter_file p ON (p.FileID=f.FileID AND p.ParameterTypeID=$Scan[ParameterTypeID]) WHERE f.SessionID=s.ID AND fqc.QCStatus='Pass' AND p.Value='$Scan[ScanType]' LIMIT 1) as `$Scan[ScanType]_QCStatus`, (SELECT CASE WHEN f.Caveat=0 THEN 'False' WHEN f.Caveat=1 THEN 'True' END FROM files f LEFT JOIN files_qcstatus fqc USING(FileID) LEFT JOIN parameter_file p ON (p.FileID=f.FileID AND p.ParameterTypeID=$Scan[ParameterTypeID]) WHERE f.SessionID=s.ID AND fqc.QCStatus='Pass' AND p.Value='$Scan[ScanType]' LIMIT 1) as `$Scan[ScanType]_CaveatEmptor`";
         }
         $Query .= " FROM session s JOIN candidate c USING (CandID) LEFT JOIN feedback_mri_comments fmric ON (fmric.CommentTypeID=7 AND fmric.SessionID=s.ID) WHERE c.PSCID <> 'scanner' AND c.PSCID NOT LIKE '%9999' AND c.Active='Y' AND s.Active='Y' AND c.CenterID <> 1";
         return $Query;
