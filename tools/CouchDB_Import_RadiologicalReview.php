@@ -97,12 +97,14 @@ class CouchDBRadiologicalReviewImporter {
 
     function run() {
 
+        // Update CouchDB data dictionary
         $this->CouchDB->replaceDoc('DataDictionary:RadiologicalReview',
             array('Meta' => array('DataDict' => true),
                   'DataDictionary' => array('RadiologicalReview' => $this->Dictionary) 
             )
         );
         
+        // Query to retriew radiological review data
         $radiologicalreview = $this->SQLDB->pselect("SELECT c.PSCID, s.Visit_label,
             eFinal.full_name AS FinalReview_Radiologist, CASE WHEN frr.Review_Done=0 
             THEN 'No' WHEN frr.Review_Done=1 THEN 'Yes' END as FinalReview_Done, 
@@ -136,6 +138,8 @@ class CouchDBRadiologicalReviewImporter {
             LEFT JOIN examiners eFinal ON (eFinal.ExaminerID=frr.Final_Examiner)
             LEFT JOIN examiners eExtra ON (eExtra.ExaminerID=frr.Final_Examiner2)
             LEFT JOIN examiners eSite ON (eSite.ExaminerID=rr.Examiner)", array());
+        
+        // Adding the data to CouchDB documents
         foreach($radiologicalreview as $review) {
             $identifier = array($review['PSCID'], $review['Visit_label']);
             $id = 'Radiological_Review_' . join($identifier, '_');
