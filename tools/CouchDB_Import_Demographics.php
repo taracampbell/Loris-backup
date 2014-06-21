@@ -7,8 +7,6 @@ class CouchDBDemographicsImporter {
                 // of using Database::singleton in case it's a mock.
     var $CouchDB; // reference to the CouchDB database handler
 
-    var $config;
-
     // this is just in an instance variable to make
     // the code a little more readable.
     var $Dictionary = array(
@@ -95,6 +93,7 @@ class CouchDBDemographicsImporter {
     }
 
     function _getSubproject($id) {
+        $config = NDB_Config::singleton();
         $subprojsXML = $config->getSetting("subprojects");
         $subprojs = $subprojsXML['subproject'];
         foreach($subprojs as $subproj) {
@@ -105,6 +104,7 @@ class CouchDBDemographicsImporter {
     }
 
     function _getProject($id) {
+        $config = NDB_Config::singleton();
         $subprojsXML = $config->getSetting("Projects");
         $subprojs = $subprojsXML['project'];
         foreach($subprojs as $subproj) {
@@ -115,9 +115,11 @@ class CouchDBDemographicsImporter {
     }
 
     function _generateQuery() {
+        $config = NDB_Config::singleton();
         $fieldsInQuery = "SELECT c.CandID, c.PSCID, s.Visit_label, s.SubprojectID, p.Alias as Site, c.Gender, s.Current_stage, CASE WHEN s.Visit='Failure' THEN 'Failure' WHEN s.Screening='Failure' THEN 'Failure' WHEN s.Visit='Withdrawal' THEN 'Withdrawal' WHEN s.Screening='Withdrawal' THEN 'Withdrawal' ELSE 'Neither' END as Failure, c.ProjectID, c.EDC as EDC, c.flagged_caveatemptor as CEF, c.flagged_caveatemptor as CEF, c_o.Description as CEF_reason, c.flagged_other as CEF_comment, pc_comment.Value as Comment, pso.Description as Status, ps.participant_suboptions as Status_reason, ps.reason_specify as Status_comments";
-        $tablesToJoin = "FROM session s JOIN candidate c USING (CandID) LEFT JOIN psc p ON (p.CenterID=s.CenterID) LEFT JOIN caveat_options c_o ON (c_o.ID=c.flagged_reason) LEFT JOIN parameter_candidate AS pc_comment ON (pc_comment.CandID=c.CandID) AND pc_comment.ParameterTypeID=(SELECT ParameterTypeID FROM parameter_type WHERE Name='candidate_comment') LEFT JOIN participant_status ps ON (ps.CandID=c.CandID) LEFT JOIN participant_status_options pso ON (pso.ID=ps.participant_status)";
-        if ($this->config->getSetting("useProband") === "true") {
+        $tablesToJoin = " FROM session s JOIN candidate c USING (CandID) LEFT JOIN psc p ON (p.CenterID=s.CenterID) LEFT JOIN caveat_options c_o ON (c_o.ID=c.flagged_reason) LEFT JOIN parameter_candidate AS pc_comment ON (pc_comment.CandID=c.CandID) AND pc_comment.ParameterTypeID=(SELECT ParameterTypeID FROM parameter_type WHERE Name='candidate_comment') LEFT JOIN participant_status ps ON (ps.CandID=c.CandID) LEFT JOIN participant_status_options pso ON (pso.ID=ps.participant_status)";
+        if ($config->getSetting("useProband") === "true") {
+            print("here");
             $probandFields = ", c.ProbandGender as Gender_proband, ROUND(DATEDIFF(c.DoB, c.ProbandDoB) / (365/12)) AS Age_difference, c.Sibling1 as Sibling_ID, f.Relationship_type as Relationship_to_sibling";
             $fieldsInQuery .= $probandFields;
             $probandTables = " LEFT JOIN family f ON (f.CandID=c.CandID)";
@@ -128,6 +130,7 @@ class CouchDBDemographicsImporter {
     }
 
     function _updateDataDict() {
+        $config = NDB_Config::singleton();
         $Proband = array(
             'Gender_proband' => array(
                 'Description' => 'Proband\'s gender',
@@ -146,7 +149,8 @@ class CouchDBDemographicsImporter {
                 'Type' => "enum('half_sibling','full_sibling','1st_cousin')",
             )
         );
-        if ($this->config->getSetting('useProband')) {
+        if ($config->getSetting("useProband") === "true") {
+            print("here");
             $this->Dictionary = array_merge($this->Dictionary, $Proband);
         }
     }
@@ -179,10 +183,9 @@ class CouchDBDemographicsImporter {
             ));
             print "$id: $success\n";
         }
-
     }
 }
-// Don't run if we're doing the unit tests, the unit test will call run..
+// Don't run if we're doing the unit tests; the unit test will call run.
 if(!class_exists('UnitTestCase')) {
     $Runner = new CouchDBDemographicsImporter();
     $Runner->run();
