@@ -118,6 +118,8 @@ class CouchDBInstrumentImporter {
     }
     function run() {
         $tests = $this->GetInstruments();
+        // There is a separate script to import radiological review data
+        unset($tests['radiology_review']);
         $this->UpdateDataDicts($tests);
         $results = $this->UpdateCandidateDocs($tests);
         $this->CreateRunLog($results);
