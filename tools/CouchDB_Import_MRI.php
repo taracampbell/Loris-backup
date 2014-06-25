@@ -23,13 +23,13 @@ class CouchDBMRIImporter {
             'Type' => "enum('Y','N')"
         )
     );
+
     function __construct() {
         $this->SQLDB = Database::singleton();
         $this->CouchDB = CouchDB::singleton();
     }
 
     function UpdateDataDict($types) {
-        
         foreach($types as $type) {
             $ScanType = $type['ScanType'];
             $this->Dictionary["Selected_$ScanType"] = array(
@@ -56,7 +56,8 @@ class CouchDBMRIImporter {
     }
 
     function _generateCandidatesQuery($ScanTypes) {
-        $Query = "SELECT c.PSCID, s.Visit_label, fmric.Comment as QCComment, s.MRIQCStatus as QCStatus, s.MRIQCPending as QCPending";
+        $Query = "SELECT c.PSCID, s.Visit_label, fmric.Comment as QCComment, s.MRIQCStatus as QCStatus, 
+            s.MRIQCPending as QCPending";
         foreach($ScanTypes as $Scan) {
             $Query .= ", (SELECT f.File FROM files f LEFT JOIN files_qcstatus fqc USING(FileID) LEFT JOIN parameter_file p ON (p.FileID=f.FileID AND p.ParameterTypeID=$Scan[ParameterTypeID]) WHERE f.SessionID=s.ID AND fqc.QCStatus='Pass' AND p.Value='$Scan[ScanType]' LIMIT 1) as `Selected_$Scan[ScanType]`, (SELECT fqc.QCStatus FROM files f LEFT JOIN files_qcstatus fqc USING(FileID) LEFT JOIN parameter_file p ON (p.FileID=f.FileID AND p.ParameterTypeID=$Scan[ParameterTypeID]) WHERE f.SessionID=s.ID AND fqc.QCStatus='Pass' AND p.Value='$Scan[ScanType]' LIMIT 1) as `$Scan[ScanType]_QCStatus`, (SELECT CASE WHEN f.Caveat=0 THEN 'False' WHEN f.Caveat=1 THEN 'True' END FROM files f LEFT JOIN files_qcstatus fqc USING(FileID) LEFT JOIN parameter_file p ON (p.FileID=f.FileID AND p.ParameterTypeID=$Scan[ParameterTypeID]) WHERE f.SessionID=s.ID AND fqc.QCStatus='Pass' AND p.Value='$Scan[ScanType]' LIMIT 1) as `$Scan[ScanType]_CaveatEmptor`";
         }
@@ -103,29 +104,26 @@ class CouchDBMRIImporter {
                                 if($size != filesize($fullPath)) {
                                     // File has been modified, upload it.
                                     $toUpload = $fileName;
-
                                 }
-                            } else {
+                            } 
+                            else {
                                 // This attachment not been uploaded - ever
                                 $toUpload = $fileName;
                             }
-
-                        } else {
+                        } 
+                        else {
                             // No current attachments, so this file has not
                             // been uploaded
                             $toUpload = $fileName;
                         }
-
                         if(!empty($toUpload)) {
                             $data = file_get_contents($fullPath);
                             print "Adding $fileName to $docid\n";
                             $output = $this->CouchDB->_postRelativeURL($docid . '/' . $fileName . '?rev=' . $latestDoc['_rev'], $data, 'PUT', 'application/x-minc');
                         }
-                       
-
-
                     }
-                } else {
+                } 
+                else {
                         print "****COULD NOT FIND $fullPath TO ADD TO $docid***\n";
                 }
             }
@@ -134,14 +132,17 @@ class CouchDBMRIImporter {
     }
 
     function run() {
-        $ScanTypes = $this->SQLDB->pselect("SELECT DISTINCT pf.ParameterTypeID, pf.Value as ScanType from parameter_type pt JOIN parameter_file pf USING (ParameterTypeID) WHERE pt.Name='selected' AND COALESCE(pf.Value, '') <> ''", array());
+        $ScanTypes = $this->SQLDB->pselect("SELECT DISTINCT pf.ParameterTypeID, pf.Value AS ScanType 
+            FROM parameter_type pt JOIN parameter_file pf USING (ParameterTypeID) 
+            WHERE pt.Name='selected' AND COALESCE(pf.Value, '') <> ''", array());
         $this->UpdateDataDict($ScanTypes);
         $query = $this->_generateCandidatesQuery($ScanTypes);
         $CandidateData = $this->SQLDB->pselect($query, array());
         $this->UpdateCandidateDocs($CandidateData, $ScanTypes);
     }
 }
-// Don't run if we're doing the unit tests, the unit test will call run..
+
+// Don't run if we're doing the unit tests; the unit test will call run.
 if(!class_exists('UnitTestCase')) {
     $Runner = new CouchDBMRIImporter();
     $Runner->run();
