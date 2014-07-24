@@ -138,38 +138,58 @@ BrowserDetect.init();
 	 		</a>
 	 	</div>
  	</div>
- 	<div class="panel panel-default col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-		  <div class="panel-body">
-		  		<div class="col-xs-12">
-		  			<center>
-		  			<img src="images/LORIS_v2.grey.clear.png" class="img-responsive" alt="Responsive image" align="middle">
-		  		</center>
-		  		</div>
-		  		<br><br><br><br><br>
-		  		<div class="hidden-xs hidden-sm">
-		  			<br><br><br><br>
-		  		</div>
-		  		<div class="col-xs-12">
-		  			<font color="red" align="middle">
-		  			{$error_message}
-		  		</font>
-		  		<div>
-		  		<div class="col-xs-12">
-		  		<form action="{$action}" method="post">
-		  			<div class="form-group">
-		  				<input name="username" class="form-control" type="text" value="{$username}" placeholder="User"/>
-		  			</div>
-		  			<div class="form-group">
-		  				<input name="password" class="form-control" type="password" placeholder="Password"/>
-		  			</div>
-		  			<input class="btn btn-primary col-xs-12" name="login" type="submit" value="login" />
-		  			<br><br><br>
-		  			<a href="lost_password.php"><center>Forgot your password?</center></a>
-		  		</form>
-		  		</div>
-		  		
-		  </div>
-	</div>
+ 	
+ 	<div class="container">
+ 		<div class="row">
+ 			<div class="panel panel-default col-md-3">
+		 		<div class="panel-body">
+		 			{foreach from=$investigators item=investigator}
+						{$investigator}
+						</br>
+					{/foreach}
+		 		</div>
+		 	</div><!-- ./investigators -->
+		 	<div class="panel panel-default col-md-6">
+				<div class="panel-body">
+					<div class="col-xs-12">
+						<center>
+							<img src="images/LORIS_v2.grey.clear.png" class="img-responsive" alt="Responsive image" align="middle">
+						</center>
+					</div>
+					<br><br><br><br><br>
+					<div class="hidden-xs hidden-sm">
+						<br><br><br><br>
+					</div>
+					<div class="col-xs-12">
+						<font color="red" align="middle">
+							{$error_message}
+						</font>
+					</div>
+					<div class="col-xs-12">
+						<form action="{$action}" method="post">
+							<div class="form-group">
+								<input name="username" class="form-control" type="text" value="{$username}" placeholder="User"/>
+							</div>
+							<div class="form-group">
+								<input name="password" class="form-control" type="password" placeholder="Password"/>
+							</div>
+							<input class="btn btn-primary col-xs-12" name="login" type="submit" value="login" />
+							<br><br><br>
+							<a href="lost_password.php"><center>Forgot your password?</center></a>
+						</form>
+					</div>
+				</div>
+			</div><!-- ./login -->
+		 	<div class="panel panel-default col-md-3">
+		 		<div class="panel-body">
+		 			{foreach from=$institutions item=institution}
+						{$institution}
+						</br>
+					{/foreach}
+		 		</div>
+		 	</div><!-- ./institutions -->
+ 		</div>
+ 	</div>
 
 
 

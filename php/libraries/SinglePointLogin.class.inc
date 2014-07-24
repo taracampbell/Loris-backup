@@ -65,6 +65,14 @@ class SinglePointLogin extends PEAR
                     'windowName' => $WindowName
                     );
         }
+        $investigators = $config->getSetting('investigators');
+        foreach(Utility::toArray($investigators['investigator']) AS $investigator){
+            $tpl_data['investigators'][] = $investigator;
+        }
+        $institutions = $config->getSetting('institutions');
+        foreach(Utility::toArray($institutions['institution']) AS $institution){
+            $tpl_data['institutions'][] = $institution;
+        }
         $study_title = $config->getSetting('title');
         $study_logo  = $config->getSetting('studylogo');
         $tpl_data['study_title'] = $study_title;
