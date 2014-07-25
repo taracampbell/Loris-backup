@@ -142,7 +142,7 @@ BrowserDetect.init();
  	
  	<div class="container">
  		<div class="row">
-		 	<div class="panel panel-default col-md-4 col-md-offset-4">
+		 	<div class="panel panel-default col-md-6 col-md-offset-3">
 				<div class="panel-body">
 					<div class="col-md-10 col-md-offset-1">
 						<img src="images/LORIS_v2.grey.clear.png" class="img-responsive" alt="Responsive image">
@@ -165,7 +165,7 @@ BrowserDetect.init();
 					</br></br></br>
 					<a href="lost_password.php"><center>Forgot your password?</center></a>
 					<hr>
-					<div class="login-footer">
+					<div class="login-panel-footer">
 						| 
 						{foreach from=$studylinks item=link}
 							<a href="{$link.url}" target="{$link.windowName}">{$link.label}</a> | 
@@ -183,6 +183,7 @@ BrowserDetect.init();
 				</div>
 			</div><!-- ./login -->
 		</div>
+		<div class="login-page-footer">
 		 	<div id="investigators">
 			 	| 
 				{foreach from=$investigators item=investigator}
@@ -196,6 +197,7 @@ BrowserDetect.init();
 					{$institution} |
 				{/foreach}
 			</div>
+		</div>
  	</div>
 
 {literal}
