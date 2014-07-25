@@ -141,7 +141,7 @@ BrowserDetect.init();
  	
  	<div class="container">
  		<div class="row">
- 			<div class="panel panel-default col-md-3">
+ 			<div class="panel panel-default col-md-4">
 		 		<div class="panel-body">
 		 			{foreach from=$investigators item=investigator}
 						{$investigator}
@@ -149,34 +149,41 @@ BrowserDetect.init();
 					{/foreach}
 		 		</div>
 		 	</div><!-- ./investigators -->
-		 	<div class="panel panel-default col-md-6">
+		 	<div class="panel panel-default col-md-4">
 				<div class="panel-body">
-					<div class="col-xs-12">
-						<center>
-							<img src="images/LORIS_v2.grey.clear.png" class="img-responsive" alt="Responsive image" align="middle">
-						</center>
+					<div class="col-md-10 col-md-offset-1">
+						<img src="images/LORIS_v2.grey.clear.png" class="img-responsive" alt="Responsive image">
 					</div>
-					<br><br><br><br><br>
-					<div class="hidden-xs hidden-sm">
-						<br><br><br><br>
-					</div>
-					<div class="col-xs-12">
-						<font color="red" align="middle">
-							{$error_message}
-						</font>
-					</div>
-					<div class="col-xs-12">
-						<form action="{$action}" method="post">
-							<div class="form-group">
-								<input name="username" class="form-control" type="text" value="{$username}" placeholder="User"/>
-							</div>
-							<div class="form-group">
-								<input name="password" class="form-control" type="password" placeholder="Password"/>
-							</div>
-							<input class="btn btn-primary col-xs-12" name="login" type="submit" value="login" />
-							<br><br><br>
-							<a href="lost_password.php"><center>Forgot your password?</center></a>
-						</form>
+					</br>
+					<font color="red" align="middle">
+						{$error_message}
+					</font>
+					<form action="{$action}" method="post">
+						<div class="form-group">
+							<input name="username" class="form-control" type="text" value="{$username}" placeholder="User"/>
+						</div>
+						<div class="form-group">
+							<input name="password" class="form-control" type="password" placeholder="Password"/>
+						</div>
+						<input class="btn btn-primary col-xs-12" name="login" type="submit" value="login" />
+					</form>
+					</br></br></br>
+					<a href="lost_password.php"><center>Forgot your password?</center></a>
+					<hr>
+					<div class="login-footer">
+						| 
+						{foreach from=$studylinks item=link}
+							<a href="{$link.url}" target="{$link.windowName}">{$link.label}</a> | 
+						{/foreach}
+						<p>
+							A WebGL-compatible browser is required for full functionality (Mozilla Firefox, Google Chrome)
+							</br>
+							Powered by LORIS &copy; 2013. All rights reserved.
+							</br>
+							Created by <a href="http://cbrain.mcgill.ca" target="_blank"> ACElab</a>
+							</br>
+							Developed at <a href="http://www.mni.mcgill.ca" target="_blank">Montreal Neurological Institute and Hospital</a>
+						</p>
 					</div>
 				</div>
 			</div><!-- ./login -->
@@ -192,27 +199,6 @@ BrowserDetect.init();
  	</div>
 
 
-
-<!-- old study web links positioning
-<table class="StudyWeblinks" align="center">
-<tr>
-<div id="footerLinks">
-<td width="100%">
-<ul id="navlist" style="margin-top: 5px; margin-bottom: 2px;" >
-
-<li id="active">|</li>
-{foreach from=$studylinks item=link}
-<li><a href="{$link.url}" target="{$link.windowName}">{$link.label}</a> | </li>
-{/foreach}
-
-</ul>
-</td>
-</div>
-</tr>
-
-</table>
--->
-<!--img src="images/mni_logo.png" class="watermark" alt="Montreal Neurological Institute" border="0" width="100" height="83"-->
 <table class="LoginFooter" align="center">
 <tr>
 <hr width = 70%>
