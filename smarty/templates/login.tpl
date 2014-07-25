@@ -5,6 +5,7 @@
 <!-- shortcut icon that displays on the browser window -->
 <link rel="shortcut icon" href="images/mni_icon.ico" type="image/ico" />
 <link rel="stylesheet" href="bootstrap-3.1.1/css/bootstrap.css">
+<link rel="stylesheet" href="css/login.css">
 <!-- page title -->
 <title>{$title}</title>
 
@@ -141,20 +142,12 @@ BrowserDetect.init();
  	
  	<div class="container">
  		<div class="row">
- 			<div class="panel panel-default col-md-4">
-		 		<div class="panel-body">
-		 			{foreach from=$investigators item=investigator}
-						{$investigator}
-						</br>
-					{/foreach}
-		 		</div>
-		 	</div><!-- ./investigators -->
-		 	<div class="panel panel-default col-md-4">
+		 	<div class="panel panel-default col-md-4 col-md-offset-4">
 				<div class="panel-body">
 					<div class="col-md-10 col-md-offset-1">
 						<img src="images/LORIS_v2.grey.clear.png" class="img-responsive" alt="Responsive image">
 					</div>
-					</br>
+					</br></br></br>
 					<font color="red" align="middle">
 						{$error_message}
 					</font>
@@ -165,7 +158,9 @@ BrowserDetect.init();
 						<div class="form-group">
 							<input name="password" class="form-control" type="password" placeholder="Password"/>
 						</div>
-						<input class="btn btn-primary col-xs-12" name="login" type="submit" value="login" />
+						<div class="col-md-4 col-md-offset-4">
+							<input class="btn btn-primary btn-block" name="login" type="submit" value="login" />
+						</div>
 					</form>
 					</br></br></br>
 					<a href="lost_password.php"><center>Forgot your password?</center></a>
@@ -187,49 +182,21 @@ BrowserDetect.init();
 					</div>
 				</div>
 			</div><!-- ./login -->
-		 	<div class="panel panel-default col-md-3">
-		 		<div class="panel-body">
-		 			{foreach from=$institutions item=institution}
-						{$institution}
-						</br>
-					{/foreach}
-		 		</div>
-		 	</div><!-- ./institutions -->
- 		</div>
+		</div>
+		 	<div id="investigators">
+			 	| 
+				{foreach from=$investigators item=investigator}
+					{$investigator} |
+				{/foreach}
+			</div>
+			<hr>
+			<div id="institutions">
+				| 
+				{foreach from=$institutions item=institution}
+					{$institution} |
+				{/foreach}
+			</div>
  	</div>
-
-
-<table class="LoginFooter" align="center">
-<tr>
-<hr width = 70%>
-<td width="100%">
-<ul id="navlist" style="margin-top: 5px; margin-bottom: 2px;">
-
-<li id="active">|</li>
-{foreach from=$studylinks item=link}
-<li><a href="{$link.url}" target="{$link.windowName}">{$link.label}</a> | </li>
-{/foreach}
-
-</ul>
-</td>
-</tr>
-<tr>
-<!--td align="center" colspan="1"><br><font color="#C40A29">A WebGL-compatible browser is required for full functionality.</font></td-->
-</tr>       
-<tr>
-<td align="center" colspan="1" style="color:#808080" >A WebGL-compatible browser is required for full functionality (Mozilla Firefox, Google Chrome)</td>
-</tr>	
-<tr>
-<td align="center" colspan="1" style="color:#808080" >Powered by LORIS &copy; 2013. All rights reserved.</td>
-</tr>	
-<tr>
-<td align="center" colspan="1"style="color: #808080">Created by <a href="http://cbrain.mcgill.ca" style="color: #064785" target="_blank"> ACElab</a></td>
-</tr>
-<tr>
-<td align="center" colspan="1" style="color: #808080"> Developed at <a href="http://www.mni.mcgill.ca" style="color: #064785" target="_blank">Montreal Neurological Institute and Hospital</a></td>
-
-</tr>
-</table>
 
 {literal}
 <script type='text/javascript'>
@@ -250,6 +217,6 @@ if(BrowserDetect.browser == "Explorer") {
 	</script>
 	{/literal}
 	*}
-	</form>
+
 </body>
-	</html>
+</html>
