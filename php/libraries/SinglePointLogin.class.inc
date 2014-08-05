@@ -67,11 +67,33 @@ class SinglePointLogin extends PEAR
         }
         $investigators = $config->getSetting('investigators');
         foreach(Utility::toArray($investigators['investigator']) AS $investigator){
-            $tpl_data['investigators'][] = $investigator;
+            $LinkArgs = '';
+            $BaseURL = $investigator['@']['url'];
+            if(isset($investigator['@']['args'])) {
+                $LinkArgs = $link_args[$investigator['@']['args']];
+            }
+            $LinkLabel = $investigator['#'];
+            $WindowName = md5($investigator['@']['url']);
+            $tpl_data['investigators'][]=array(
+                    'url'        => $BaseURL . $LinkArgs,
+                    'label'      => $LinkLabel,
+                    'windowName' => $WindowName
+                    );
         }
         $institutions = $config->getSetting('institutions');
         foreach(Utility::toArray($institutions['institution']) AS $institution){
-            $tpl_data['institutions'][] = $institution;
+            $LinkArgs = '';
+            $BaseURL = $institution['@']['url'];
+            if(isset($institution['@']['args'])) {
+                $LinkArgs = $link_args[$institution['@']['args']];
+            }
+            $LinkLabel = $institution['#'];
+            $WindowName = md5($institution['@']['url']);
+            $tpl_data['institutions'][]=array(
+                    'url'        => $BaseURL . $LinkArgs,
+                    'label'      => $LinkLabel,
+                    'windowName' => $WindowName
+                    );
         }
         $study_title = $config->getSetting('title');
         $study_logo  = $config->getSetting('studylogo');

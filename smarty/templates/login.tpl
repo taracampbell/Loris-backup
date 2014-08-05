@@ -187,14 +187,14 @@ BrowserDetect.init();
 		 	<div id="investigators">
 			 	| 
 				{foreach from=$investigators item=investigator}
-					{$investigator} |
+					<a href="{$investigator.url}" target="{$investigator.windowName}">{$investigator.label}</a> |
 				{/foreach}
 			</div>
 			<hr>
 			<div id="institutions">
 				| 
 				{foreach from=$institutions item=institution}
-					{$institution} |
+					<a href="{$institution.url}" target="{$institution.windowName}">{$institution.label}</a> |
 				{/foreach}
 			</div>
 		</div>
