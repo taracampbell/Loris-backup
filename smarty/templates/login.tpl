@@ -126,28 +126,25 @@ BrowserDetect.init();
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 </head>
-<body background="" class="LoginBackground">
-	<div class ="logo">
-
-	</div>
+<body>
+	<div class ="logo"></div>
 	
  	<div class="navbar navbar-default" role="navigation" style="height:90px">
  		<div class="container">
-	 		<a class="navbar-brand" href="#" style="align:center;">
+	 		<a class="navbar-brand">
 		 		<img src="{$study_logo}" border="0" width="64" height="57" />
 		 		{$study_title}
 	 		</a>
 	 	</div>
  	</div>
  	
- 	<div class="container">
- 		<div class="row">
-		 	<div class="panel panel-default col-md-6 col-md-offset-3">
+ 	<div class="col-md-12">
+	 	<div class="col-md-4 col-md-offset-4">
+		 	<div class="panel panel-default">
 				<div class="panel-body">
-					<div class="col-md-10 col-md-offset-1">
+					<div class="loris-logo">
 						<img src="images/LORIS_v2.grey.clear.png" class="img-responsive" alt="Responsive image">
 					</div>
-					</br></br></br>
 					<font color="red" align="middle">
 						{$error_message}
 					</font>
@@ -170,35 +167,43 @@ BrowserDetect.init();
 						{foreach from=$studylinks item=link}
 							<a href="{$link.url}" target="{$link.windowName}">{$link.label}</a> | 
 						{/foreach}
-						<p>
-							A WebGL-compatible browser is required for full functionality (Mozilla Firefox, Google Chrome)
-							</br>
-							Powered by LORIS &copy; 2013. All rights reserved.
-							</br>
-							Created by <a href="http://cbrain.mcgill.ca" target="_blank"> ACElab</a>
-							</br>
-							Developed at <a href="http://www.mni.mcgill.ca" target="_blank">Montreal Neurological Institute and Hospital</a>
-						</p>
 					</div>
 				</div>
-			</div><!-- ./login -->
-		</div>
-		<div class="login-page-footer">
-		 	<div id="investigators">
-			 	| 
-				{foreach from=$investigators item=investigator}
-					<a href="{$investigator.url}" target="{$investigator.windowName}">{$investigator.label}</a> |
-				{/foreach}
 			</div>
-			<hr>
-			<div id="institutions">
-				| 
-				{foreach from=$institutions item=institution}
-					<a href="{$institution.url}" target="{$institution.windowName}">{$institution.label}</a> |
-				{/foreach}
+		</div><!-- ./login -->
+		<div class="col-md-4 col-md-offset-4">
+			<div class="panel panel-default investigators">
+				<div class="panel-heading">Investigators</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-6">
+							{foreach from=$investigators item=investigator}
+								{if $investigator@iteration is odd}
+									<a href="{$investigator.url}" target="{$investigator.windowName}">{$investigator.label}</a>
+									</br>
+								{/if}
+							{/foreach}
+						</div>
+						<div class="col-md-6">
+							{foreach from=$investigators item=investigator}
+								{if $investigator@iteration is even}
+									<a href="{$investigator.url}" target="{$investigator.windowName}">{$investigator.label}</a>
+									</br>
+								{/if}
+							{/foreach}
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
- 	</div>
+	</div>
+	
+	<div class="login-page-footer">
+		<p>A WebGL-compatible browser is required for full functionality (Mozilla Firefox, Google Chrome)</p>
+		<p>Powered by LORIS &copy; 2013. All rights reserved.</p>
+		<p>Created by <a href="http://mcin-cnim.ca/" target="_blank"> ACElab</a></p>
+		<p>Developed at <a href="http://www.mni.mcgill.ca" target="_blank">Montreal Neurological Institute and Hospital</a></p>
+	</div>
 
 {literal}
 <script type='text/javascript'>
