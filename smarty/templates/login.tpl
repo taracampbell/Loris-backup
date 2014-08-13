@@ -138,43 +138,47 @@ BrowserDetect.init();
 	 	</div>
  	</div>
  	
- 	<div class="col-md-12">
-	 	<div class="col-md-4 col-md-offset-4">
+ 	<div class="row">
+	 	<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
 		 	<div class="panel panel-default">
 				<div class="panel-body">
-					<div class="loris-logo">
-						<img src="images/LORIS_v2.grey.clear.png" class="img-responsive" alt="Responsive image">
-					</div>
-					<font color="red" align="middle">
-						{$error_message}
-					</font>
-					<form action="{$action}" method="post">
-						<div class="form-group">
-							<input name="username" class="form-control" type="text" value="{$username}" placeholder="User"/>
+					<div class="col-xs-12">
+						<div class="loris-logo">
+							<img src="images/LORIS_v2.grey.clear.png" class="img-responsive loris-logo-img" alt="Loris Logo">
 						</div>
-						<div class="form-group">
-							<input name="password" class="form-control" type="password" placeholder="Password"/>
+						<font color="red" align="middle">
+							{$error_message}
+						</font>
+						<form action="{$action}" method="post">
+							<div class="form-group">
+								<input name="username" class="form-control" type="text" value="{$username}" placeholder="User"/>
+							</div>
+							<div class="form-group">
+								<input name="password" class="form-control" type="password" placeholder="Password"/>
+							</div>
+							<div class="col-md-6 col-md-offset-3">
+								<input class="btn btn-primary btn-block" name="login" type="submit" value="login" />
+							</div>
+						</form>
+						</br></br></br>
+						<a href="lost_password.php"><center>Forgot your password?</center></a>
+						<hr>
+						<div class="login-panel-footer">
+							| 
+							{foreach from=$studylinks item=link}
+								<a href="{$link.url}" target="{$link.windowName}">{$link.label}</a> | 
+							{/foreach}
 						</div>
-						<div class="col-md-4 col-md-offset-4">
-							<input class="btn btn-primary btn-block" name="login" type="submit" value="login" />
-						</div>
-					</form>
-					</br></br></br>
-					<a href="lost_password.php"><center>Forgot your password?</center></a>
-					<hr>
-					<div class="login-panel-footer">
-						| 
-						{foreach from=$studylinks item=link}
-							<a href="{$link.url}" target="{$link.windowName}">{$link.label}</a> | 
-						{/foreach}
 					</div>
 				</div>
 			</div>
 		</div><!-- ./login -->
-		<div class="col-md-4 col-md-offset-4">
-			<div class="panel panel-default investigators">
+	</div>
+	<div class="row">
+		<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+			<div class="panel panel-default">
 				<div class="panel-heading">Investigators</div>
-				<div class="panel-body">
+				<div class="panel-body investigators">
 					<div class="row">
 						<div class="col-md-6">
 							{foreach from=$investigators item=investigator}
