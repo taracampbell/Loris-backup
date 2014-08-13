@@ -162,13 +162,6 @@ BrowserDetect.init();
 						</form>
 						</br></br></br>
 						<a href="lost_password.php"><center>Forgot your password?</center></a>
-						<hr>
-						<div class="login-panel-footer">
-							| 
-							{foreach from=$studylinks item=link}
-								<a href="{$link.url}" target="{$link.windowName}">{$link.label}</a> | 
-							{/foreach}
-						</div>
 					</div>
 				</div>
 			</div>
@@ -203,6 +196,12 @@ BrowserDetect.init();
 	</div>
 	
 	<div class="login-page-footer">
+		<p>
+			|
+			{foreach from=$studylinks item=link}
+				<a href="{$link.url}" target="{$link.windowName}">{$link.label}</a> | 
+			{/foreach}
+		</p>
 		<p>A WebGL-compatible browser is required for full functionality (Mozilla Firefox, Google Chrome)</p>
 		<p>Powered by LORIS &copy; 2013. All rights reserved.</p>
 		<p>Created by <a href="http://mcin-cnim.ca/" target="_blank"> ACElab</a></p>
