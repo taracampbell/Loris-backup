@@ -203,7 +203,7 @@ BrowserDetect.init();
 			{/foreach}
 		</p>
 		<p>A WebGL-compatible browser is required for full functionality (Mozilla Firefox, Google Chrome)</p>
-		<p>Powered by LORIS &copy; 2013. All rights reserved.</p>
+		<p>Powered by LORIS &copy; 2014. All rights reserved.</p>
 		<p>Created by <a href="http://mcin-cnim.ca/" target="_blank"> ACElab</a></p>
 		<p>Developed at <a href="http://www.mni.mcgill.ca" target="_blank">Montreal Neurological Institute and Hospital</a></p>
 	</div>
