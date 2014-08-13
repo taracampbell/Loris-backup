@@ -51,15 +51,15 @@
     <LivingPhantomRegex>/./i</LivingPhantomRegex>
     <showTransferStatus>false</showTransferStatus>
 </dicom_archive>
-<!-- Following links will appear on the footer of the home page of loris installation -->
+
+<!-- Following links will appear on the footer of the loris login page-->
 <Studylinks>
     <link url='http://www.loris.ca'>Loris Website</link>
-    <link url='http://www.github.com'>GitHub</link>
 </Studylinks>
 
+<!-- Following links will appear on the footer of all pages, once logged in-->
 <links>
     <link url='http://www.loris.ca'>Loris Website</link>
-    <link url='http://www.github.com'>GitHub</link>
 </links>
 
 <!-- mail settings -->
