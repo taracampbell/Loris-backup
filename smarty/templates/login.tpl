@@ -195,7 +195,7 @@ BrowserDetect.init();
 		</div>
 	</div>
 	
-	<div class="login-page-footer">
+	<div id="footer" class="footer navbar-bottom">
 		<p>
 			|
 			{foreach from=$studylinks item=link}
