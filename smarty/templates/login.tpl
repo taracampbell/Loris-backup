@@ -148,7 +148,9 @@ BrowserDetect.init();
 		      		<div class="loris-logo">
 						<img src="images/LORIS_v2.grey.clear.png" class="img-responsive loris-logo-img" alt="Loris Logo">
 					</div>
-					<div class="alert alert-danger" role="alert">{$error_message}</div>
+					{if $error_message neq ""}
+						<div class="alert alert-danger" role="alert">{$error_message}</div>
+					{/if}
 					<div class="form-box">
 			        	<form action="{$action}" method="post">
 							<input name="username" type="text" value="{$username}" placeholder="username">
@@ -164,8 +166,23 @@ BrowserDetect.init();
 	  	</div>
 	</div>
  	
-	<div class="row">
-		<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+ 	<div class="container">
+	 	<div class="row">
+	 		<div class="panel panel-default">
+	 			<div class="panel-body">
+	 				<h2>{$study_title}</h2>
+	 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vehicula euismod lacus id tincidunt. Vestibulum varius ornare iaculis. Phasellus feugiat pharetra ligula, non dictum tortor volutpat vitae. Ut eget pharetra nunc, sit amet aliquet eros. Vivamus lobortis, nibh non lacinia blandit, sem lacus tincidunt arcu, volutpat accumsan velit urna a enim. Sed dui orci, sollicitudin non gravida porta, venenatis ut ex. In convallis rhoncus felis, vel vulputate dui pretium eget. Aliquam sit amet lacinia dolor. Pellentesque eget velit nec lorem sollicitudin posuere. Morbi malesuada ac turpis condimentum blandit. Aenean condimentum, leo vel auctor dictum, massa erat luctus sem, at porta lorem magna efficitur nisi. Maecenas ornare urna vel urna porttitor, quis cursus risus malesuada. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum sed ipsum et augue vehicula vestibulum.</p>
+	 			</div>
+	 			{if $studylinks neq ""}
+    	            <div class="panel-footer">| 
+    	            	{foreach from=$studylinks item=link}
+    						<a href="{$link.url}" target="{$link.windowName}">{$link.label}</a> |
+    					{/foreach}
+    				</div>
+                {/if}
+	 		</div>
+	 	</div>
+		<div class="row">
 			<div class="panel panel-default">
 				<div class="panel-heading">Investigators</div>
 				<div class="panel-body investigators">
@@ -190,9 +207,21 @@ BrowserDetect.init();
 				</div>
 			</div>
 		</div>
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-heading">Institutions</div>
+				<div class="panel-body">
+					<ul class="horizontal-slide">
+					{foreach from=$institutions item=institution}
+						<li><a href="{$institution.url}"><img src="{$institution.logo}" class="img-responsive" alt="{$institution.name}"></a></li>
+					{/foreach}
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
 	
-	<div id="footer" class="footer navbar-bottom">
+	<!--<div id="footer" class="footer navbar-bottom">
 		<p>
 			|
 			{foreach from=$studylinks item=link}
@@ -203,7 +232,7 @@ BrowserDetect.init();
 		<p>Powered by LORIS &copy; 2014. All rights reserved.</p>
 		<p>Created by <a href="http://mcin-cnim.ca/" target="_blank"> ACElab</a></p>
 		<p>Developed at <a href="http://www.mni.mcgill.ca" target="_blank">Montreal Neurological Institute and Hospital</a></p>
-	</div>
+	</div>-->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="bootstrap-3.1.1/js/bootstrap.min.js"></script>

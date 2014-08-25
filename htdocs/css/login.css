@@ -59,3 +59,15 @@
     margin-top:15px;
     padding: 10px 20px;
 }
+ul.horizontal-slide {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    white-space: nowrap;
+    overflow-x: auto;
+}
+ul.horizontal-slide li {
+    display: inline-block;
+    float: none;
+    padding-right: 20px;
+}

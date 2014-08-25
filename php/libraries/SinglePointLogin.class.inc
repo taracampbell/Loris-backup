@@ -82,17 +82,10 @@ class SinglePointLogin extends PEAR
         }
         $institutions = $config->getSetting('institutions');
         foreach(Utility::toArray($institutions['institution']) AS $institution){
-            $LinkArgs = '';
-            $BaseURL = $institution['@']['url'];
-            if(isset($institution['@']['args'])) {
-                $LinkArgs = $link_args[$institution['@']['args']];
-            }
-            $LinkLabel = $institution['#'];
-            $WindowName = md5($institution['@']['url']);
             $tpl_data['institutions'][]=array(
-                    'url'        => $BaseURL . $LinkArgs,
-                    'label'      => $LinkLabel,
-                    'windowName' => $WindowName
+                    'name'       => $institution['name'],
+                    'url'        => $institution['link'],
+                    'logo'       => $institution['logo']
                     );
         }
         $study_title = $config->getSetting('title');
