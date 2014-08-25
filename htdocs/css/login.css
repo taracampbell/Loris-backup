@@ -27,7 +27,9 @@
 }
 
 
-.form-box input{
+.form-box input[type="text"],
+.form-box input[type="password"]
+{
     width: 100%;
     padding: 10px;
     text-align: center;
@@ -53,7 +55,7 @@
     border-top: 0;
 }
 
-.form-box button.login{
+.form-box input[type="submit"]{
     margin-top:15px;
     padding: 10px 20px;
 }

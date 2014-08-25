@@ -142,7 +142,7 @@ BrowserDetect.init();
 	    	<div class="modal-content">
 	     		<div class="modal-header">
 	       			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-	        		<h4 class="modal-title" id="myModalLabel">Login</h4>
+	        		<h4 class="modal-title" id="loginModalLabel">Login</h4>
 	      		</div>
 		      	<div class="modal-body">
 		      		<div class="loris-logo">
@@ -164,35 +164,6 @@ BrowserDetect.init();
 	  	</div>
 	</div>
  	
- 	<!--<div class="row">
-	 	<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-		 	<div class="panel panel-default">
-				<div class="panel-body">
-					<div class="col-xs-12">
-						<div class="loris-logo">
-							<img src="images/LORIS_v2.grey.clear.png" class="img-responsive loris-logo-img" alt="Loris Logo">
-						</div>
-						<font color="red" align="middle">
-							{$error_message}
-						</font>
-						<form action="{$action}" method="post">
-							<div class="form-group">
-								<input name="username" class="form-control" type="text" value="{$username}" placeholder="User"/>
-							</div>
-							<div class="form-group">
-								<input name="password" class="form-control" type="password" placeholder="Password"/>
-							</div>
-							<div class="col-md-6 col-md-offset-3">
-								<input class="btn btn-primary btn-block" name="login" type="submit" value="login" />
-							</div>
-						</form>
-						</br></br></br>
-						<a href="lost_password.php"><center>Forgot your password?</center></a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>-->
 	<div class="row">
 		<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
 			<div class="panel panel-default">
