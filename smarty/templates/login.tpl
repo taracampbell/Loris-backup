@@ -127,18 +127,44 @@ BrowserDetect.init();
 
 </head>
 <body>
-	<div class ="logo"></div>
-	
- 	<div class="navbar navbar-default" role="navigation" style="height:90px">
+ 	<div class="navbar navbar-default" role="navigation">
  		<div class="container">
 	 		<a class="navbar-brand">
-		 		<img src="{$study_logo}" border="0" width="64" height="57" />
-		 		{$study_title}
+		 		LORIS
 	 		</a>
+	 		<button type="button" class="btn btn-default navbar-btn pull-right" data-toggle="modal" data-target="#loginModal">Login</button>
 	 	</div>
  	</div>
+
+ 	<!-- Modal -->
+	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+	 	<div class="modal-dialog modal-loris">
+	    	<div class="modal-content">
+	     		<div class="modal-header">
+	       			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	        		<h4 class="modal-title" id="myModalLabel">Login</h4>
+	      		</div>
+		      	<div class="modal-body">
+		      		<div class="loris-logo">
+						<img src="images/LORIS_v2.grey.clear.png" class="img-responsive loris-logo-img" alt="Loris Logo">
+					</div>
+					<div class="alert alert-danger" role="alert">{$error_message}</div>
+					<div class="form-box">
+			        	<form action="{$action}" method="post">
+							<input name="username" type="text" value="{$username}" placeholder="username">
+	                    	<input name="password" type="password" placeholder="password">
+							<input class="btn btn-primary btn-block" name="login" type="submit" value="login" />
+						</form>
+					</div>
+				</div>
+		      	<div class="modal-footer">
+		        	<a href="lost_password.php">Forgot your password?</a> | <a href="request_account/process_new_account.php">Request account</a>
+		      	</div>
+	    	</div>
+	  	</div>
+	</div>
  	
- 	<div class="row">
+ 	<!--<div class="row">
 	 	<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
 		 	<div class="panel panel-default">
 				<div class="panel-body">
@@ -165,8 +191,8 @@ BrowserDetect.init();
 					</div>
 				</div>
 			</div>
-		</div><!-- ./login -->
-	</div>
+		</div>
+	</div>-->
 	<div class="row">
 		<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
 			<div class="panel panel-default">
@@ -208,6 +234,8 @@ BrowserDetect.init();
 		<p>Developed at <a href="http://www.mni.mcgill.ca" target="_blank">Montreal Neurological Institute and Hospital</a></p>
 	</div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="bootstrap-3.1.1/js/bootstrap.min.js"></script>
 {literal}
 <script type='text/javascript'>
 <!--
