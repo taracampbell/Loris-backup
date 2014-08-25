@@ -71,3 +71,14 @@ ul.horizontal-slide li {
     float: none;
     padding-right: 20px;
 }
+ul.horizontal-slide li img {
+    -webkit-filter: grayscale(50%);
+       -moz-filter: grayscale(50%);
+         -o-filter: grayscale(50%);
+        -ms-filter: grayscale(50%);
+            filter: grayscale(50%); 
+}
+ul.horizontal-slide li img:hover {
+  filter: none;
+  -webkit-filter: grayscale(0%);
+}

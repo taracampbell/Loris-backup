@@ -213,7 +213,7 @@ BrowserDetect.init();
 				<div class="panel-body">
 					<ul class="horizontal-slide">
 					{foreach from=$institutions item=institution}
-						<li><a href="{$institution.url}"><img src="{$institution.logo}" class="img-responsive" alt="{$institution.name}"></a></li>
+						<li><a href="{$institution.url}"><img src="{$institution.logo}" height="120" alt="{$institution.name}"></a></li>
 					{/foreach}
 					</ul>
 				</div>
