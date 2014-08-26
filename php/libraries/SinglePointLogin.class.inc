@@ -50,7 +50,9 @@ class SinglePointLogin extends PEAR
         $tpl_data['css']=$config->getSetting('css');
         $tpl_data['action'] = $_SERVER['PHP_SELF'].'?'.Utility::unparse_str($params);
         $tpl_data['error_message'] = $this->_lastError;
-        $study_links = $config->getSetting('Studylinks');// print_r($study_links);
+        $description = $config->getSetting('description');
+        $tpl_data['description'] = $description;
+        $study_links = $config->getSetting('Studylinks');
         foreach(Utility::toArray($study_links['link']) AS $link){
             $LinkArgs = '';
             $BaseURL = $link['@']['url'];

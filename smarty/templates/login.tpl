@@ -155,7 +155,7 @@ BrowserDetect.init();
 			        	<form action="{$action}" method="post">
 							<input name="username" type="text" value="{$username}" placeholder="username">
 	                    	<input name="password" type="password" placeholder="password">
-							<input class="btn btn-primary btn-block" name="login" type="submit" value="login" />
+							<input class="btn btn-primary btn-block" name="login" type="submit" value="login" id="modalLoginButton">
 						</form>
 					</div>
 				</div>
@@ -168,18 +168,14 @@ BrowserDetect.init();
  	
  	<div class="container">
 	 	<div class="row">
-	 		<div class="panel panel-default">
-	 			<div class="panel-body">
-	 				<h2>{$study_title}</h2>
-	 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vehicula euismod lacus id tincidunt. Vestibulum varius ornare iaculis. Phasellus feugiat pharetra ligula, non dictum tortor volutpat vitae. Ut eget pharetra nunc, sit amet aliquet eros. Vivamus lobortis, nibh non lacinia blandit, sem lacus tincidunt arcu, volutpat accumsan velit urna a enim. Sed dui orci, sollicitudin non gravida porta, venenatis ut ex. In convallis rhoncus felis, vel vulputate dui pretium eget. Aliquam sit amet lacinia dolor. Pellentesque eget velit nec lorem sollicitudin posuere. Morbi malesuada ac turpis condimentum blandit. Aenean condimentum, leo vel auctor dictum, massa erat luctus sem, at porta lorem magna efficitur nisi. Maecenas ornare urna vel urna porttitor, quis cursus risus malesuada. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum sed ipsum et augue vehicula vestibulum.</p>
-	 			</div>
-	 			{if $studylinks neq ""}
-    	            <div class="panel-footer">| 
-    	            	{foreach from=$studylinks item=link}
-    						<a href="{$link.url}" target="{$link.windowName}">{$link.label}</a> |
-    					{/foreach}
-    				</div>
-                {/if}
+	 		<div class="col-lg-6 col-lg-offset-3">
+	 			<img src="{$study_logo}" class="img-responsive reflect-below" alt="Loris Logo">
+	 		</div>
+	 	</div>
+	 	<div class="row">
+	 		<div class="col-lg-12 study-info">
+	 			<h2>{$study_title}</h2>
+	 				<p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vehicula euismod lacus id tincidunt. Vestibulum varius ornare iaculis. Phasellus feugiat pharetra ligula, non dictum tortor volutpat vitae. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 	 		</div>
 	 	</div>
 		<div class="row">
@@ -208,34 +204,35 @@ BrowserDetect.init();
 			</div>
 		</div>
 		<div class="row">
-			<div class="panel panel-default">
-				<div class="panel-heading">Institutions</div>
-				<div class="panel-body">
-					<ul class="horizontal-slide">
-					{foreach from=$institutions item=institution}
-						<li><a href="{$institution.url}"><img src="{$institution.logo}" height="120" alt="{$institution.name}"></a></li>
-					{/foreach}
-					</ul>
-				</div>
+			<div class="col-lg-12">
+				<ul class="horizontal-slide">
+				{foreach from=$institutions item=institution}
+					<li><a href="{$institution.url}"><img src="{$institution.logo}" height="120" alt="{$institution.name}"></a></li>
+				{/foreach}
+				</ul>
 			</div>
 		</div>
+
+		<div>
+		{foreach from=$studylinks item=link}
+    						<a href="{$link.url}" target="{$link.windowName}">{$link.label}</a> |
+    					{/foreach}
+			<a href="#" data-toggle="popover" title="" data-content="test content <a href='' title='test add link'>link on content</a>" data-original-title="test title">test link</a>
+			<p>A WebGL-compatible browser is required for full functionality (Mozilla Firefox, Google Chrome)</p>
+			<p>Powered by LORIS &copy; 2014. All rights reserved.</p>
+			<p>Created by <a href="http://mcin-cnim.ca/" target="_blank"> ACElab</a></p>
+			<p>Developed at <a href="http://www.mni.mcgill.ca" target="_blank">Montreal Neurological Institute and Hospital</a></p>
+		</div>
+
 	</div>
-	
-	<!--<div id="footer" class="footer navbar-bottom">
-		<p>
-			|
-			{foreach from=$studylinks item=link}
-				<a href="{$link.url}" target="{$link.windowName}">{$link.label}</a> | 
-			{/foreach}
-		</p>
-		<p>A WebGL-compatible browser is required for full functionality (Mozilla Firefox, Google Chrome)</p>
-		<p>Powered by LORIS &copy; 2014. All rights reserved.</p>
-		<p>Created by <a href="http://mcin-cnim.ca/" target="_blank"> ACElab</a></p>
-		<p>Developed at <a href="http://www.mni.mcgill.ca" target="_blank">Montreal Neurological Institute and Hospital</a></p>
-	</div>-->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="bootstrap-3.1.1/js/bootstrap.min.js"></script>
+{literal}
+<script type='text/javascript'>
+	$("[data-toggle=popover]").popover({html:true});
+</script>
+{/literal}
 {literal}
 <script type='text/javascript'>
 <!--
