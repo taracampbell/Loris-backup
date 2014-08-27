@@ -8,6 +8,7 @@
 
 .investigators {
 	max-height: 150px;
+	text-align: center;
 }
 
 
@@ -70,13 +71,18 @@ ul.horizontal-slide li img:hover {
   filter: none;
   -webkit-filter: grayscale(0%);
 }
+#institutions {
+	padding-bottom: 20px;
+}
 #study-logo {
-	text-align: center;
+	display:table-cell;
+    vertical-align:middle;
+    float:none;
 }
 .study-info {
 	text-align: center;
 }
 .reflect-below	{ 
 	-webkit-box-reflect: below 0
-    -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.5, transparent), to(rgba(255,255,255,0.4))); 
+    -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.8, transparent), to(rgba(255,255,255,0.4))); 
 }
