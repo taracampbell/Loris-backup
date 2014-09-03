@@ -67,8 +67,8 @@ class SinglePointLogin extends PEAR
                     'windowName' => $WindowName
                     );
         }
-        $investigators = $config->getSetting('investigators');
-        foreach(Utility::toArray($investigators['investigator']) AS $investigator){
+        $principal_investigators = $config->getSetting('principal_investigators');
+        foreach(Utility::toArray($principal_investigators['investigator']) AS $investigator){
             $LinkArgs = '';
             $BaseURL = $investigator['@']['url'];
             if(isset($investigator['@']['args'])) {
@@ -76,7 +76,37 @@ class SinglePointLogin extends PEAR
             }
             $LinkLabel = $investigator['#'];
             $WindowName = md5($investigator['@']['url']);
-            $tpl_data['investigators'][]=array(
+            $tpl_data['principal_investigators'][]=array(
+                    'url'        => $BaseURL . $LinkArgs,
+                    'label'      => $LinkLabel,
+                    'windowName' => $WindowName
+                    );
+        }
+        $behavioural_investigators = $config->getSetting('behavioural_investigators');
+        foreach(Utility::toArray($behavioural_investigators['investigator']) AS $investigator){
+            $LinkArgs = '';
+            $BaseURL = $investigator['@']['url'];
+            if(isset($investigator['@']['args'])) {
+                $LinkArgs = $link_args[$investigator['@']['args']];
+            }
+            $LinkLabel = $investigator['#'];
+            $WindowName = md5($investigator['@']['url']);
+            $tpl_data['behavioural_investigators'][]=array(
+                    'url'        => $BaseURL . $LinkArgs,
+                    'label'      => $LinkLabel,
+                    'windowName' => $WindowName
+                    );
+        }
+        $imaging_investigators = $config->getSetting('imaging_investigators');
+        foreach(Utility::toArray($imaging_investigators['investigator']) AS $investigator){
+            $LinkArgs = '';
+            $BaseURL = $investigator['@']['url'];
+            if(isset($investigator['@']['args'])) {
+                $LinkArgs = $link_args[$investigator['@']['args']];
+            }
+            $LinkLabel = $investigator['#'];
+            $WindowName = md5($investigator['@']['url']);
+            $tpl_data['imaging_investigators'][]=array(
                     'url'        => $BaseURL . $LinkArgs,
                     'label'      => $LinkLabel,
                     'windowName' => $WindowName

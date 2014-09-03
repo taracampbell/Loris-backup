@@ -128,137 +128,132 @@ BrowserDetect.init();
 </head>
 <body>
 	<div id="wrap">
- 	<div class="navbar navbar-default" role="navigation">
- 		<div class="container">
-	 		<a class="navbar-brand">
-		 		LORIS
-	 		</a>
-	 		<button type="button" class="btn btn-default navbar-btn pull-right" data-toggle="modal" data-target="#loginModal">Login</button>
-	 	</div>
- 	</div>
-
- 	<!-- Modal -->
-	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-	 	<div class="modal-dialog modal-loris">
-	    	<div class="modal-content">
-	     		<div class="modal-header">
-	       			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-	        		<h4 class="modal-title" id="loginModalLabel">Login</h4>
-	      		</div>
-		      	<div class="modal-body">
-		      		<div class="loris-logo">
-						<img src="images/LORIS_v2.grey.clear.png" class="img-responsive loris-logo-img" alt="Loris Logo">
-					</div>
-					{if $error_message neq ""}
-						<div class="alert alert-danger" role="alert">{$error_message}</div>
-					{/if}
-					<div class="form-box">
-			        	<form action="{$action}" method="post">
-							<input name="username" type="text" value="{$username}" placeholder="username">
-	                    	<input name="password" type="password" placeholder="password">
-							<input class="btn btn-primary btn-block" name="login" type="submit" value="login" id="modalLoginButton">
-						</form>
-					</div>
-				</div>
-		      	<div class="modal-footer">
-		        	<a href="lost_password.php">Forgot your password?</a> | <a href="request_account/process_new_account.php">Request account</a>
-		      	</div>
-	    	</div>
-	  	</div>
-	</div>
- 	
- 	<div class="container" id="page">
- 		<div class="col-lg-8 col-lg-offset-2">
-		 	<div class="row">
-		 		<div class="panel panel-default">
- 					<div class="panel-body">
-    					<div class="col-lg-4">
-    						<img src="{$study_logo}" class="img-responsive center-block" alt="Loris Logo" id="study-logo">
-    					</div>
-    					<div class="col-lg-8">
-    						<h2>{$study_title}</h2>
-    						<p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ut ultricies sem, vel mollis lacus. Morbi semper est vitae elit cursus iaculis.</p>
-    					</div>
-					</div>
-				</div>
+	 	<div class="navbar navbar-default" role="navigation">
+	 		<div class="container">
+		 		<a class="navbar-brand">
+			 		LORIS
+		 		</a>
+		 		<button type="button" class="btn btn-default navbar-btn pull-right" data-toggle="modal" data-target="#loginModal">Login</button>
 		 	</div>
-			<div class="row">
-				<div class="panel panel-default">
-					<div class="panel-heading">Investigators</div>
-					<div class="panel-body investigators">
-						<div class="row">
-							<div class="col-md-4">
-								<h5>Principal</h5>
-								{foreach from=$investigators item=investigator}
-									{if $investigator@iteration is odd}
+	 	</div>
+
+	 	<!-- Modal -->
+		<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+		 	<div class="modal-dialog modal-loris">
+		    	<div class="modal-content">
+		     		<div class="modal-header">
+		       			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		        		<h4 class="modal-title" id="loginModalLabel">Login</h4>
+		      		</div>
+			      	<div class="modal-body">
+			      		<div class="loris-logo">
+							<img src="images/LORIS_v2.grey.clear.png" class="img-responsive loris-logo-img" alt="Loris Logo">
+						</div>
+						{if $error_message neq ""}
+							<div class="alert alert-danger" role="alert">{$error_message}</div>
+						{/if}
+						<div class="form-box">
+				        	<form action="{$action}" method="post">
+								<input name="username" type="text" value="{$username}" placeholder="username">
+		                    	<input name="password" type="password" placeholder="password">
+								<input class="btn btn-primary btn-block" name="login" type="submit" value="login" id="modalLoginButton">
+							</form>
+						</div>
+					</div>
+			      	<div class="modal-footer">
+			        	<a href="lost_password.php">Forgot your password?</a> | <a href="request_account/process_new_account.php">Request account</a>
+			      	</div>
+		    	</div>
+		  	</div>
+		</div>
+ 	
+	 	<div class="container" id="page">
+	 		<div class="col-lg-8 col-lg-offset-2">
+			 	<div class="row">
+			 		<div class="panel panel-default">
+	 					<div class="panel-body">
+	    					<div class="col-lg-4">
+	    						<img src="{$study_logo}" class="img-responsive center-block" alt="Loris Logo" id="study-logo">
+	    					</div>
+	    					<div class="col-lg-8">
+	    						<h2>{$study_title}</h2>
+	    						<p class="lead">{$description}</p>
+	    					</div>
+						</div>
+					</div>
+			 	</div>
+				<div class="row">
+					<div class="panel panel-default">
+						<div class="panel-heading">Investigators</div>
+						<div class="panel-body investigators">
+							<div class="row">
+								<div class="col-md-4">
+									<h5>Principal</h5>
+									{foreach from=$principal_investigators item=investigator}
 										<a href="{$investigator.url}" target="{$investigator.windowName}">{$investigator.label}</a>
 										</br>
-									{/if}
-								{/foreach}
-							</div>
-							<div class="col-md-4">
-								<h5>Behavioural</h5>
-								{foreach from=$investigators item=investigator}
-									{if $investigator@iteration is odd}
+									{/foreach}
+								</div>
+								<div class="col-md-4">
+									<h5>Behavioural</h5>
+									{foreach from=$behavioural_investigators item=investigator}
 										<a href="{$investigator.url}" target="{$investigator.windowName}">{$investigator.label}</a>
 										</br>
-									{/if}
-								{/foreach}
-							</div>
-							<div class="col-md-4">
-								<h5>Imaging</h5>
-								{foreach from=$investigators item=investigator}
-									{if $investigator@iteration is even}
+									{/foreach}
+								</div>
+								<div class="col-md-4">
+									<h5>Imaging</h5>
+									{foreach from=$imaging_investigators item=investigator}
 										<a href="{$investigator.url}" target="{$investigator.windowName}">{$investigator.label}</a>
 										</br>
-									{/if}
-								{/foreach}
+									{/foreach}
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-12" id="institutions">
-					<ul class="horizontal-slide">
-					{foreach from=$institutions item=institution}
-						<li><a href="{$institution.url}"><img src="{$institution.logo}" height="120" alt="{$institution.name}"></a></li>
-					{/foreach}
-					</ul>
+				<div class="row">
+					<div class="col-lg-12" id="institutions">
+						<ul class="horizontal-slide">
+						{foreach from=$institutions item=institution}
+							<li><a href="{$institution.url}"><img src="{$institution.logo}" height="120" alt="{$institution.name}"></a></li>
+						{/foreach}
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
-		</div></div>
-
-		<div id="footer" class="footer navbar-bottom">
-            <ul id="navlist" style="margin-top: 5px; margin-bottom: 2px;" align="center">
-                <li id="active">
-                    |
-                </li>
-                {foreach from=$studylinks item=link}
-                        <li>  
-                            <a href="{$link.url}" target="{$link.windowName}">
-                                {$link.label}
-                            </a> 
-                            |
-                        </li>
-                {/foreach}
-                <li><a href="http://journal.frontiersin.org/Journal/10.3389/fninf.2011.00037/full">How to cite LORIS</a> |
-            </ul>
-            <div align="center">
-                A WebGL-compatible browser is required for full functionality (Mozilla Firefox, Google Chrome)
-            </div>
-            <div align="center">
-                Powered by LORIS &copy; 2013. All rights reserved.
-            </div>
-            <div align="center">
-                Created by <a href="http://mcin-cnim.ca/" style="color: #064785" target="_blank"> ACElab</a>
-            </div>
-            <div align="center">
-                Developed at <a href="http://www.mni.mcgill.ca" style="color: #064785" target="_blank">Montreal Neurological Institute and Hospital</a>
-            </div>
-        </div>
 	</div>
+
+	<div id="footer" class="footer navbar-bottom">
+        <ul id="navlist" style="margin-top: 5px; margin-bottom: 2px;" align="center">
+            <li id="active">
+                |
+            </li>
+            {foreach from=$studylinks item=link}
+                    <li>  
+                        <a href="{$link.url}" target="{$link.windowName}">
+                            {$link.label}
+                        </a> 
+                        |
+                    </li>
+            {/foreach}
+            <li><a href="http://journal.frontiersin.org/Journal/10.3389/fninf.2011.00037/full">How to cite LORIS</a> |
+        </ul>
+        <div align="center">
+            A WebGL-compatible browser is required for full functionality (Mozilla Firefox, Google Chrome)
+        </div>
+        <div align="center">
+            Powered by LORIS &copy; 2013. All rights reserved.
+        </div>
+        <div align="center">
+            Created by <a href="http://mcin-cnim.ca/" style="color: #064785" target="_blank"> ACElab</a>
+        </div>
+        <div align="center">
+            Developed at <a href="http://www.mni.mcgill.ca" style="color: #064785" target="_blank">Montreal Neurological Institute and Hospital</a>
+        </div>
+    </div>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="bootstrap-3.1.1/js/bootstrap.min.js"></script>
